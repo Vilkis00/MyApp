@@ -10,7 +10,6 @@ class Bike (
     Vehicle(id, plate, color, year, brand) {
 
     override fun accelerate() {
-        super.accelerate()
         println("Se gira el acelerador")
     }
 }

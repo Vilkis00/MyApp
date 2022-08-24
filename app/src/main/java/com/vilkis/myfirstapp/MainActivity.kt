@@ -17,18 +17,8 @@ class MainActivity : AppCompatActivity() {
         //dataTypes()
         //ifStatement()
 
-        val car = Car(4, 1, "001", "Rojo", "1998", "Mazda")
-        car.doors = 3
-        car.year = "1999"
-        val bike = Bike(true, 2, "002", "Negro", "2000", "Suzuki")
-
-        test(car)
-        test(bike)
-    }
-
-    private fun test(vehicle: Vehicle) {
-        vehicle.accelerate()
-        println(vehicle.year)
+        nullSafety()
+        //inheritance()
     }
 
     /*
@@ -125,5 +115,40 @@ class MainActivity : AppCompatActivity() {
         } else {
             println("$myNumber es mayor que 10 o menor o igual 5 y no es igual a 53")
         }
+    }
+
+    /*
+    Null safety
+     */
+    private fun nullSafety() {
+        var variable: String? = "Daniel"
+        println(variable)
+
+        variable = null
+        println(variable)
+
+        val bool = true
+        //variable = bool ? "Morales" : null
+        variable = if (bool) "Morales" else null
+
+        variable?.let {
+            println(it)
+        } ?: run {
+            println("El valor es nulo")
+        }
+    }
+
+    /*
+    Herencia y polimorfismo
+     */
+    private fun inheritance() {
+        val car = Car(4, 1, "001", "Rojo", "1998", "Mazda")
+        val bike = Bike(true, 2, "002", "Negro", "2000", "Suzuki")
+
+        var vehicle: Vehicle = car
+        vehicle.accelerate()
+
+        vehicle = bike
+        vehicle.accelerate()
     }
 }

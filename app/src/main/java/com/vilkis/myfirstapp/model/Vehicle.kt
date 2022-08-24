@@ -8,6 +8,6 @@ open class Vehicle (
     var brand: String) {
 
     open fun accelerate() {
-
+        println("Función base de aceleración")
     }
 }
