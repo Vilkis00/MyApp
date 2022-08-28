@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vilkis.myfirstapp.model.Bike
 import com.vilkis.myfirstapp.model.Car
+import com.vilkis.myfirstapp.model.Test
 import com.vilkis.myfirstapp.model.Vehicle
 import myfirstapp.R
 
@@ -17,8 +18,20 @@ class MainActivity : AppCompatActivity() {
         //dataTypes()
         //ifStatement()
 
-        nullSafety()
+        //nullSafety()
         //inheritance()
+
+        var test = Test(1, null, "Hola")
+        test.something()
+
+        test = Test(2, text = "Adiós")
+        test.something()
+
+        Test.Companion.Testing.HOLA.texto
+
+        val nested = Test.NestedClass().nested
+
+        var innerClass = Test().InnerClass()
     }
 
     /*
