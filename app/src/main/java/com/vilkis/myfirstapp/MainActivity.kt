@@ -2,11 +2,12 @@ package com.vilkis.myfirstapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.vilkis.myfirstapp.model.Bike
-import com.vilkis.myfirstapp.model.Car
-import com.vilkis.myfirstapp.model.Test
-import com.vilkis.myfirstapp.model.Vehicle
+import com.vilkis.myfirstapp.model.*
 import myfirstapp.R
+
+typealias MyMapList = MutableMap<Int, ArrayList<String>>
+typealias MyFun = (Int, String, MyMapList) -> Boolean
+typealias MyNestedClass = Test.NestedClass
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,18 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         //nullSafety()
         //inheritance()
-
-        var test = Test(1, null, "Hola")
-        test.something()
-
-        test = Test(2, text = "Adiós")
-        test.something()
-
-        Test.Companion.Testing.HOLA.texto
-
-        val nested = Test.NestedClass().nested
-
-        var innerClass = Test().InnerClass()
+        //nestedAndInnerClass()
+        //enumClass()
+        //dataClasses()
+        //typeAliases()
     }
 
     /*
@@ -163,5 +156,63 @@ class MainActivity : AppCompatActivity() {
 
         vehicle = bike
         vehicle.accelerate()
+    }
+
+    /*
+    Clases anidadas e internas
+     */
+    private fun nestedAndInnerClass() {
+        val nestedClass = Test.NestedClass()
+        println(nestedClass.nested)
+
+        val innerClass = Test().InnerClass()
+        println(innerClass.inner)
+    }
+
+    /*
+    Enum class
+     */
+    private fun enumClass() {
+        println(Test.Companion.Testing.HOLA.texto)
+    }
+
+    /*
+    Data classes: clases enfocadas principalmente a trabajar datos
+     */
+    private fun dataClasses() {
+        val vilkis = Worker("Daniel Morales", 24, "Desarrollador")
+        vilkis.lastWork = "Practicante"
+
+        val constructorVacio = Worker()
+
+        //equals & hashCode
+        println(if (vilkis == constructorVacio) "Son iguales" else "No son iguales")
+
+        //toString
+        println(vilkis.toString())
+
+        //copy
+        val vilkis2 = vilkis.copy(age = 25)
+
+        //componentN
+        val (name, age) = vilkis
+        println(name)
+        println(age)
+    }
+
+    /*
+    Type aliases: alias para tipos de datos, la idea es facilitar el uso de tipos complejos
+     */
+    private var myMap: MyMapList = mutableMapOf()
+
+    private fun typeAliases() {
+        val myNewMap: MyMapList = mutableMapOf()
+        myNewMap[1] = arrayListOf("Daniel", "Morales")
+        myNewMap[2] = arrayListOf("Vilkis")
+
+        myMap = myNewMap
+
+        val nestedClass = MyNestedClass()
+        println(nestedClass.nested)
     }
 }
