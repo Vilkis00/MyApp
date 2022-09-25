@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vilkis.myfirstapp.model.*
 import myfirstapp.R
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 typealias MyMapList = MutableMap<Int, ArrayList<String>>
 typealias MyFun = (Int, String, MyMapList) -> Boolean
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         //enumClass()
         //dataClasses()
         //typeAliases()
+        //destructuringDeclarations()
+        //extensions()
+        //lambdas()
     }
 
     /*
@@ -214,5 +220,83 @@ class MainActivity : AppCompatActivity() {
 
         val nestedClass = MyNestedClass()
         println(nestedClass.nested)
+    }
+
+    /*
+    Destructuring declarations
+     */
+    private fun destructuringDeclarations() {
+        val (name, age, work) = Worker("Daniel Morales", 24, "Desarrollador")
+        println("$name, $age, $work")
+
+        val vilkis = Worker("Daniel Morales", 24, "Desarrollador")
+        println("${vilkis.component1()}, ${vilkis.component2()}, ${vilkis.component3()}")
+
+        val (name2, age2, work2) = myWorker()
+        println("$name2, $age2, $work2")
+
+        val myMap = mapOf(1 to "Daniel", 2 to "Morales", 3 to "Restrepo")
+        for (element in myMap) {
+            println("${element.key}, ${element.value}")
+            println("${element.component1()}, ${element.component2()}")
+        }
+
+        for ((id, text) in myMap) {
+            println("$id, $text")
+        }
+
+        val (name3, _, work3) = Worker("Daniel Morales", 24, "Desarrollador")
+        println("$name3, $work3")
+    }
+
+    private fun myWorker(): Worker {
+        return Worker("Daniel Morales", 24, "Desarrollador")
+    }
+
+    /*
+    Extensiones
+     */
+    private fun extensions() {
+        val myDate = Date()
+        println(myDate.customFormat())
+        println(myDate.formatSize)
+
+        var myDateNullable: Date? = null
+        println(myDateNullable.customFormat())
+        println(myDateNullable.formatSize)
+    }
+
+    private fun lambdas() {
+        val myIntList = arrayListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        val myFilterIntList = myIntList.filter { myInt ->
+            println(myInt)
+
+            if (myInt == 1) {
+                return@filter true
+            }
+            myInt > 5
+        }
+        println(myFilterIntList)
+
+        val mySumFun = fun(x: Int, y: Int): Int = x + y
+        val myMultFun = fun(x: Int, y: Int): Int = x * y
+
+        myAsyncFun("Daniel") { println(it) }
+
+        println(myOperateFun(5, 10, mySumFun))
+        println(myOperateFun(5, 10, myMultFun))
+        println(myOperateFun(5, 10) { x, y -> x - y })
+    }
+
+    private fun myOperateFun(x: Int, y: Int, myFun: (Int, Int) -> Int): Int {
+        return myFun(x, y)
+    }
+
+    private fun myAsyncFun(name: String, hello: (String) -> Unit) {
+        val myNewString = "Hello $name!"
+        thread {
+            Thread.sleep(5000)
+            hello(myNewString)
+        }
     }
 }
